@@ -1,0 +1,361 @@
+*{
+  z-index: 1;
+}
+body {
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: white;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #settings {
+    margin-bottom: 1rem;
+    direction: rtl;
+  }
+  
+  #settings input {
+    width: 60px;
+    margin-right: 10px;
+  }
+  
+  #game-container {
+    max-width: 1000px; /* הגדל מהרוחב */
+    width: 100%;
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0px 20px 20px 20px rgba(0, 0, 0, 0.1); 
+    height: 88vh; }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+  }
+  
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .score-board {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .score-item {
+    background: #f8f9fa;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+  /* .card {
+    aspect-ratio: 3/4;
+    background: white;
+    border: 3px solid #ddd;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 140px;
+  } */
+  
+  .card:hover {
+    transform: scale(1.08); /* הגדלה עדינה */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    z-index: 1; /* מבטיח שהיא מעל השאר */
+  }
+    
+  .card.selected {
+    transform: translateY(-3px);
+    border-width: 3px;
+  }
+  
+  .card.correct {
+    border-color: #28a745;
+    background: #d4edda;
+    animation: pulse 0.5s ease-in-out;
+  }
+  
+  .card.incorrect {
+    border-color: #dc3545;
+    background: #f8d7da;
+    animation: shake 0.5s ease-in-out;
+  }
+  .message.hint {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+  
+  .shape {
+    font-size: 24px;
+    margin: 2px;
+    display: inline-block;
+  }
+  
+  .message {
+    text-align: center;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 10px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .message.show {
+    opacity: 1;
+  }
+  
+  .message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+  
+  .message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+  }
+  .message.end {
+    background: #46cee67c;
+    color: #135d7a;
+    border: 1px solid #2686a3;
+  }
+  #new-game-btn {
+    background: #57d273bd;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  #new-game-btn:hover {
+    background: #008000;  }
+
+  #hint-btn {
+    background: #ed6065;
+    font-size: 16px;
+    transition: all 0.3s ease;
+
+  }
+  
+  #hint-btn:hover {
+    background: #ff0000;  }
+  
+  #hint-btn:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  @media (max-width: 600px) {
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  /* ----- כללי ----- */
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 120px;
+    height: 180px;
+    margin: 10px;
+    border: 2px solid #333;
+    border-radius: 12px;
+    background-color: white;
+    padding: 10px;
+  }
+ .messbegin{
+  width: 60vw;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  
+  align-items: center;     
+  color: black;
+  font-size: 2em;
+  z-index: 1000;
+  text-align: center;       /* למרכז את הטקסט בתוך התגים */
+  border:4px solid black;
+  border-radius: 20px;
+  background-color:white;
+  opacity: 0.8;
+  box-shadow: 0px 20px 20px 20px rgba(0, 0, 0, 0.1);  
+}
+#overlay
+{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+  flex-direction: column;
+  justify-content: center;  
+  align-items: center;     
+  color: #ffc107;
+  font-size: 2em;
+  z-index: 1000;
+  text-align: center;       /* למרכז את הטקסט בתוך התגים */
+}
+#overlay h2, #begining h2 {
+    margin: 0 0 20px 0;
+}
+
+#overlay p, #begining p {
+    margin: 0 0 30px 0;
+}
+
+#overlay button {
+    padding: 15px 30px;
+    font-size: 1.5em;
+    background-color: #ffc107;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 15px #ffb300;
+    transition: background-color 0.3s ease;
+}
+
+#overlay button:hover {
+    background-color: #ffca28;
+}
+
+#player-login {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin: 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+/* #player-login h2 {
+    margin-bottom: 20px;
+    color: #333;
+} */
+#player-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      justify-content: space-between;
+}
+#player-info #profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+}
+.set{
+   font-size: 40px;
+   font-weight: 700;
+   font-family: Cochin, Georgia, Times, 'Times New Roman', serif;
+   background-color: black;
+}
+#createNewPlayerBtn, #enterPlay{
+  background-color:black;
+  color: white;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  margin-top: 50px;
+}
+#title div{
+  font-size: 25vw;
+  display: flex;
+  flex-direction: row-reverse;
+}
+#player-info .set{
+  background-color: white;
+}
+#options{
+  font-size: 300px;
+  display: flex;
+  flex-direction: row;
+}
+#options button{
+  font-size: 40px;
+  border: none;
+  border-top: solid 5px currentColor;
+  margin: 30px;
+  background-color: transparent;
+}
+#highScoresTable, #playersTable {
+  height: 100%;
+  width: 100%;
+  border-collapse: collapse;
+  direction: rtl;
+  table-layout: auto;
+  word-break: break-word;
+}
+#highScoresTable th, #highScoresTable td,#playersTable th, #playersTable td {
+  border: 1px solid #ccc;
+  padding: 0.5em;
+  text-align: center;
+ }
+#highScoresTable th, #playersTable th {
+  background-color: #f0f0f0;
+}
+.scroll{
+  width: 100%;
+  overflow-y: auto;
+}
+h3 {
+ margin: 10px;
+}
+#highScoresTable thead th, #playersTable thead th{
+
+  position: sticky;
+  top: 0;
+  background-color: rgb(179, 173, 173); /* או רקע אחר כדי שלא ייעלם */
+  z-index: 1;
+}
+#details{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}

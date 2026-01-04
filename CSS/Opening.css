@@ -1,0 +1,38 @@
+*{
+  z-index: 1;
+}
+.background-animation {
+    position: fixed;
+    inset: 0;
+    z-index: -1; 
+    overflow: hidden;
+    pointer-events: none; 
+  }
+  
+  .bg-shape {
+    position: absolute;
+    opacity: 0.8;
+    animation: fall linear forwards;
+    z-index: -1;
+    pointer-events: none;
+  }
+    /* אליפסה */
+  .ellipse {
+    width: 85px;
+  height: 30px;
+  border-radius: 15px / 50%;
+  box-sizing: border-box;
+
+}
+
+  @keyframes fall {
+    0% {
+      transform: translateY(-100px) rotate(0deg);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(110vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+  

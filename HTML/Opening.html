@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/Opening.css">
+    <link rel="stylesheet" href="../CSS/Shapes.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="splash-screen" id="splash-screen"></div>
+      <script>
+        const splash = document.getElementById('splash-screen');
+        const shapes = ['ellipse', 'diamond', 'wave'];
+        const colors = ['red', 'green', 'purple'];
+        const fills = ['full', 'empty', 'striped'];
+        
+        for (let i = 0; i < 120; i++) {
+          const shape = document.createElement('div');
+          shape.classList.add(
+            'shape',
+            shapes[Math.floor(Math.random() * shapes.length)],
+            colors[Math.floor(Math.random() * colors.length)],
+            fills[Math.floor(Math.random() * fills.length)]
+          );
+      
+          shape.style.left = Math.random() * 100 + 'vw';
+          shape.style.top = -Math.random() * 100 + 'px';
+          shape.style.animationDuration = (3 + Math.random() * 4) + 's';
+          shape.style.animationDelay = Math.random() * 2 + 's';
+          splash.appendChild(shape);
+        }
+      
+        // העלמת המסך לאחר 4 שניות
+        setTimeout(() => {
+          splash.style.display = 'none';
+          window.location.href = "Cards.html";
+        }, 6000);
+      </script>
+      </body>
+  
+</html>

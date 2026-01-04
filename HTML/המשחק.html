@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../CSS/Opening.css">
+  <link rel="stylesheet" href="../CSS/Shapes.css">
+  <link rel="stylesheet" href="../CSS/BoardGame.css">
+  <title>SET</title>
+  <link rel="icon" href="../icon.png" type="image/x-icon" />
+</head>
+
+<body>
+  <!-- רקע -->
+  <div class="background-animation" id="background-animation"></div>
+
+  <!-- כניסה למשחק -->
+  <div class="messbegin set" id="title">
+    <div>
+      <div class="red">S</div>
+      <div class="green">E</div>
+      <div class="purple">T</div>
+    </div>
+  </div>
+
+  <!-- בחירת שחקן -->
+  <div class="messbegin" id="player-selection" style="display:none;">
+    <h3 class="purple">בא נתחיל לשחק!!!</h3>
+    <h2>בחר שחקן קיים או צור חדש</h2>
+    <div id="existing-players"></div>
+    <button id="createNewPlayerBtn"> שחקן חדש</button>
+  </div>
+
+  <!-- שחקן חדש -->
+  <form class="messbegin" id="newPlayerForm" style="display:none;">
+    <div id="details">
+      <div style="margin: 30px;">
+        <label>שם: <input type="text" id="player-name" required></label><br>
+        <label>צבע מועדף: <input type="color" id="player-color" value="#2020D5"
+            onchange="updatePreviewColor()"></label><br>
+      </div>
+      <div style="margin: 30px;">
+        <div class="card" id="cardExample"
+          style="border-color: rgb(32, 32, 213); background-color: rgb(198, 198, 255);">
+          <div class="shape purple wave full" style="width: 103px; height: 44px;"></div>
+          <div class="shape red ellipse empty" style="margin: 13px;"></div>
+          <div class="shape green diamond striped" style="margin: 15px;"></div>
+        </div>
+        <p style="font-size: 10px;">כך יראו הקלפים שלך במשחק בעת לחיצה</p>
+      </div>
+    </div>
+    <button type="submit">אישור</button>
+  </form>
+
+  <!-- הודעת טרום משחק -->
+  <div class="messbegin" id="begining" style="display: none;">
+    <h2 id="startName"></h2>
+    <p>השיא שלך: <strong id="highScore"></strong></p>
+    <div id="settings">
+      <label for="card-count">עם כמה קלפים תרצה לשחק? </label>
+      <input type="number" id="card-count" min="3" max="81" value="81">
+    </div>
+    <button id="start" onclick="startNewGame()">!Start</button>
+  </div>
+
+  <!-- לוח משחק -->
+  <div id="game-container" style="display: none;">
+    <div id="player-info">
+      <div id="profile">
+        <img id="img" src="../Octicons person.svg.png" alt="תמונה" width="40" height="40"
+          style="border-radius: 50%; border: 4px solid black;">
+        <div>
+          <div><strong id="sname"></strong></div>
+          <div>שיא: <label id="sscore"></label> </div>
+        </div>
+      </div>
+      <div class="set purple">SET</div>
+    </div>
+    <div class="controls">
+      <div class="score-board">
+        <div class="score-item">נקודות: <span id="score">0</span></div>
+        <div class="score-item">סטים נמצאו: <span id="sets-found">0</span></div>
+        <div class="score-item">זמן: <span id="timer">00:00</span></div>
+      </div>
+      <div>
+        <button class="score-item" id="hint-btn" onclick="showHint()">רמז</button>
+        <button class="score-item" id="new-game-btn" onclick="startNewGame()">משחק חדש</button>
+      </div>
+    </div>
+    <div class="message" id="message"></div>
+    <div class="cards-grid" id="cards-grid"></div>
+  </div>
+
+  <!-- ניהול שחקנים -->
+  <div id="playersManagement" class="messbegin" style="display: none;">
+    <h3 class="green">ניהול שחקנים</h3>
+    <div class="scroll">
+      <table id="playersTable">
+        <thead>
+          <tr>
+            <th>שם</th>
+            <th>צבע</th>
+            <th>ניקוד מקסימלי</th>
+            <th>פעולות</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <!-- שיאים    -->
+  <div id="scoresDiv" class="messbegin" style="display: none;">
+    <h3 class="red">טבלת שיאים</h3>
+    <div class="scroll">
+      <table id="highScoresTable">
+        <thead>
+          <tr>
+            <th>מקום</th>
+            <th>שם שחקן</th>
+            <th>שיא</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- הודעת סיום משחק -->
+  <div id="overlay" style="display: none;">
+    <h2>🎉 המשחק נגמר! 🎉</h2>
+    <p>הניקוד שלך: <strong id="scorefinal"></strong></p>
+    <button id="restartBtn">התחל משחק חדש</button>
+  </div>
+
+
+  <!-- אפשרויות -->
+  <div id="options">
+    <button id="play" class="purple" onclick="enterToTheGame()">למשחק</button>
+    <button id="managePlayers" class="green" onclick="ManagePlayers()">ניהול שחקנים</button>
+    <button id="scores" class="red" onclick="GetScores()">שיאים</button>
+  </div>
+
+</body>
+<script src="../JS/Players.js" type="text/javascript" async></script>
+<script src="../JS/Cards.js" type="text/javascript" async></script>
+<script src="../JS/Background.js" type="text/javascript" async></script>
+
+</html>
